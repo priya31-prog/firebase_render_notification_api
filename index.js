@@ -8,7 +8,10 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 // Initialize Firebase Admin SDK with your service account
-const serviceAccount = require('./firebase-service-account.json'); // Make sure the file is in the root
+const serviceAccount = JSON.parse(
+  Buffer.from(process.env.SERVICE_ACCOUNT_BASE64, 'base64').toString('utf-8')
+);
+
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
