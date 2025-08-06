@@ -40,7 +40,13 @@ app.post('/send-notification', async (req, res) => {
 
   try {
     const response = await admin.messaging().send(message);
-    res.status(200).json({ success: true, messageId: response });
+    if (body == 'promotions') {
+      userMsg = 'You have got a new notification. Click to open'
+    }
+    else {
+      userMsg ='Test msg from post man.'
+    }
+    res.status(200).json({ success: true, messageId: response ,message :userMsg});
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
